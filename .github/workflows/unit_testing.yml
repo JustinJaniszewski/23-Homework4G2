@@ -1,14 +1,15 @@
 name: Unit testing with pytest
 
-on: push # when should we run this action
+on: push # when a merge request is accepted, this code will be called upon
 
-jobs: # what should we do when it is run
+# jobs is the list of actions that will be done when called upon
+jobs: 
   build:
     runs-on: ubuntu-latest # platform it runs on
     steps:
-    - uses: actions/checkout@v2 # checkout your code
+    - uses: actions/checkout@v2 # allows this file to see other files in repository
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v2 # installs python
       with:
         python-version: '3.10' # specify python version
     - name: Install dependencies # which libraries do we need for testing
@@ -20,6 +21,8 @@ jobs: # what should we do when it is run
     - name: Install matplotlib
       run: pip install matplotlib
     - name: Test with pytest
+
+    # runs unit test on file named "spring_constant_unittest.py" using pytest
       run: |
         pip install pytest
         pytest spring_constant_unittest.py
